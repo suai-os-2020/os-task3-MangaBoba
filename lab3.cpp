@@ -8,7 +8,7 @@
 
 
 HANDLE Threads[THREADCOUNT];
-HANDLE sem1,sem2,sem3,sem4,sem5,sem6;
+HANDLE sem1,sem2,sem3,sem4,sem5,sem6,mut;
 
 
 DWORD WINAPI ThreadA(LPVOID name);
@@ -49,7 +49,9 @@ DWORD WINAPI ThreadA(LPVOID name)
        
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'a' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -78,7 +80,9 @@ DWORD WINAPI ThreadC(LPVOID name)
 
     for (size_t i = 0; i < 3; ++i)
     {
+        WaitForSingleObject(mut, INFINITE);
         std::cout << 'c' << std::flush;
+        ReleaseMutex(mut);
         computation();
     }
 
@@ -91,7 +95,9 @@ DWORD WINAPI ThreadB(LPVOID name)
 
     for (size_t i = 0; i < 3; ++i)
     {
+        WaitForSingleObject(mut, INFINITE);
         std::cout << 'b' << std::flush;
+        ReleaseMutex(mut);
         computation();
     }
 
@@ -106,7 +112,9 @@ DWORD WINAPI ThreadG(LPVOID name)
 
     for (size_t i = 0; i < 3; ++i)
     {
+        WaitForSingleObject(mut, INFINITE);
         std::cout << 'g' << std::flush;
+        ReleaseMutex(mut);
         computation();
     }
 
@@ -132,7 +140,9 @@ DWORD WINAPI ThreadD(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'd' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -158,13 +168,17 @@ DWORD WINAPI ThreadD(LPVOID name)
 
     for (size_t i = 0; i < 3; ++i)
     {
+        WaitForSingleObject(mut, INFINITE);
         std::cout << 'd' << std::flush;
+        ReleaseMutex(mut);
         computation();
     }
 
     WaitForSingleObject(Threads[2], INFINITE);
     WaitForSingleObject(Threads[3], INFINITE);
     WaitForSingleObject(Threads[4], INFINITE);
+
+
 
     Threads[6] = CreateThread(NULL, 0, ThreadE, NULL, 0, &ThreadID);
     Threads[7] = CreateThread(NULL, 0, ThreadF, NULL, 0, &ThreadID);
@@ -182,7 +196,9 @@ DWORD WINAPI ThreadD(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'd' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -209,7 +225,9 @@ DWORD WINAPI ThreadH(LPVOID name)
 
     for (size_t i = 0; i < 3; ++i)
     {
+        WaitForSingleObject(mut, INFINITE);
         std::cout << 'h' << std::flush;
+        ReleaseMutex(mut);
         computation();
     }
 
@@ -227,7 +245,9 @@ DWORD WINAPI ThreadH(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'h' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -271,7 +291,9 @@ DWORD WINAPI ThreadK(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'k' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -309,7 +331,9 @@ DWORD WINAPI ThreadI(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'i' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -347,7 +371,9 @@ DWORD WINAPI ThreadF(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'f' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -384,7 +410,9 @@ DWORD WINAPI ThreadE(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'e' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -417,7 +445,9 @@ DWORD WINAPI ThreadE(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'e' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -454,7 +484,9 @@ DWORD WINAPI ThreadM(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'm' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -491,7 +523,9 @@ DWORD WINAPI ThreadN(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'n' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -523,10 +557,10 @@ DWORD WINAPI ThreadN(LPVOID name)
         {
 
         case WAIT_OBJECT_0:
-
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'n' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
-
             computation();
 
             if (!ReleaseSemaphore(sem2, 1, NULL)) { //increment next
@@ -563,7 +597,9 @@ DWORD WINAPI ThreadP(LPVOID name)
 
         case WAIT_OBJECT_0:
 
+            WaitForSingleObject(mut, INFINITE);
             std::cout << 'p' << std::flush;
+            ReleaseMutex(mut);
             bContinue += 1;
 
             computation();
@@ -606,9 +642,9 @@ int lab3_init()
 {
     
 
-
+    mut = CreateMutex(NULL, FALSE, NULL);
     sem1 = CreateSemaphore(NULL, 1, 1, NULL);
-
+    
     if (sem1 == NULL)
     {   printf("CreateSemaphore error: %d\n", GetLastError());
         return 1;
